@@ -12,11 +12,6 @@ window.RAPPI_DATA = {
     "new_users_count": 0,
     "last_week": [
       {
-        "date": "2026-04-26",
-        "amount": 0,
-        "orders": 0
-      },
-      {
         "date": "2026-04-27",
         "amount": 0,
         "orders": 0
@@ -50,6 +45,11 @@ window.RAPPI_DATA = {
         "date": "2026-05-03",
         "amount": 0,
         "orders": 0
+      },
+      {
+        "date": "2026-05-04",
+        "amount": 0,
+        "orders": 0
       }
     ]
   },
@@ -59,5 +59,5 @@ window.RAPPI_DATA = {
     "availability_pct": 0,
     "cooking_time_avg": 0
   },
-  "actualizadoEl": "04/05/2026 15:17"
+  "actualizadoEl": "05/05/2026 13:20"
 };
