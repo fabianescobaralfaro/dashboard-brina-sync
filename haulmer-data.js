@@ -1,40 +1,24 @@
 /* Generado automáticamente por scraper.py — NO editar manualmente */
 window.HAULMER_DATA = {
-  "actualizadoEl": "05/05/2026 13:11",
+  "actualizadoEl": "05/05/2026 13:18",
   "error": null,
   "informe_dia": {
     "periodo": "Día",
-    "monto_neto": 0,
-    "iva": 0,
-    "monto_ventas": 0,
-    "monto_exento": 0,
-    "propinas": 0,
-    "debito": 0,
-    "credito": 0,
-    "efectivo": 0,
-    "pos_breakdown": [],
-    "n_tx_debito": 0,
-    "n_tx_credito": 0,
-    "n_tx_efectivo": 0,
-    "n_tx_total": 0
-  },
-  "informe_semana": {
-    "periodo": "Semana",
-    "monto_neto": 0,
-    "iva": 0,
-    "monto_ventas": 0,
-    "monto_exento": 0,
-    "propinas": 88600,
-    "debito": 0,
-    "credito": 0,
+    "monto_neto": 117259,
+    "iva": 22281,
+    "monto_ventas": 139540,
+    "monto_exento": 139540,
+    "propinas": 4069,
+    "debito": 86559,
+    "credito": 17150,
     "efectivo": 9900,
     "pos_breakdown": [
       {
         "serial": "PB1T238420182",
-        "total_ventas": 88600,
+        "total_ventas": 94900,
         "debito": 51700,
         "credito": 13200,
-        "efectivo": 23700,
+        "efectivo": 30000,
         "propinas": 0
       },
       {
@@ -46,26 +30,60 @@ window.HAULMER_DATA = {
         "propinas": 0
       }
     ],
-    "n_tx_debito": 0,
-    "n_tx_credito": 0,
-    "n_tx_efectivo": 0,
-    "n_tx_total": 0
+    "n_tx_debito": 25,
+    "n_tx_credito": 5,
+    "n_tx_efectivo": 21,
+    "n_tx_total": 51
+  },
+  "informe_semana": {
+    "periodo": "Semana",
+    "monto_neto": 117259,
+    "iva": 22281,
+    "monto_ventas": 139540,
+    "monto_exento": 139540,
+    "propinas": 4069,
+    "debito": 86559,
+    "credito": 17150,
+    "efectivo": 30000,
+    "pos_breakdown": [
+      {
+        "serial": "PB1T238420182",
+        "total_ventas": 94900,
+        "debito": 51700,
+        "credito": 13200,
+        "efectivo": 30000,
+        "propinas": 0
+      }
+    ],
+    "n_tx_debito": 25,
+    "n_tx_credito": 5,
+    "n_tx_efectivo": 21,
+    "n_tx_total": 51
   },
   "informe_mes": {
     "periodo": "Mes",
-    "monto_neto": 0,
-    "iva": 0,
-    "monto_ventas": 0,
-    "monto_exento": 0,
-    "propinas": 0,
-    "debito": 0,
-    "credito": 0,
-    "efectivo": 0,
-    "pos_breakdown": [],
-    "n_tx_debito": 0,
-    "n_tx_credito": 0,
-    "n_tx_efectivo": 0,
-    "n_tx_total": 0
+    "monto_neto": 117259,
+    "iva": 22281,
+    "monto_ventas": 139540,
+    "monto_exento": 139540,
+    "propinas": 4069,
+    "debito": 86559,
+    "credito": 17150,
+    "efectivo": 30000,
+    "pos_breakdown": [
+      {
+        "serial": "PB1T238420182",
+        "total_ventas": 94900,
+        "debito": 51700,
+        "credito": 13200,
+        "efectivo": 30000,
+        "propinas": 0
+      }
+    ],
+    "n_tx_debito": 25,
+    "n_tx_credito": 5,
+    "n_tx_efectivo": 21,
+    "n_tx_total": 51
   },
   "dte": {
     "total_declarado": 0,
