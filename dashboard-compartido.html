@@ -1084,7 +1084,7 @@ window.HISTORICO_DATOS = {"2026-05-05": {"fecha": "2026-05-05", "haulmer": {"act
 <body>
 <div id="shared-banner" style="background:linear-gradient(90deg,rgba(108,99,255,.2),rgba(108,99,255,.08));border-bottom:1px solid rgba(108,99,255,.35);padding:9px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:0.8rem;color:#a8b3cf">
   <span>📊 <strong style="color:#e2e8f0">Dashboard de Ventas — Brina Pizzeria</strong></span>
-  <span>Datos al <strong style="color:#e2e8f0">05/05/2026 16:23</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
+  <span>Datos al <strong style="color:#e2e8f0">05/05/2026 17:31</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
 </div>
 
 <!-- ══════════════════ SIDEBAR ══════════════════ -->
@@ -3471,10 +3471,14 @@ const DATOS_HOY = {
 
 function _fmtFechaOpt(iso) {
   // "2026-05-04" -> "Lun 04/05/2026"
+  // Usar mediodía (12:00) para evitar que zonas horarias con offset negativo
+  // desplacen la fecha al día anterior y devuelvan el día de semana incorrecto
   const dias = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
-  const [y, m, d] = iso.split('-');
-  const fecha = new Date(+y, +m - 1, +d);
-  return `${dias[fecha.getDay()]} ${d}/${m}/${y}`;
+  const [y, m, d] = iso.split('-').map(Number);
+  const fecha = new Date(y, m - 1, d, 12, 0, 0);
+  const dd = String(d).padStart(2,'0');
+  const mm = String(m).padStart(2,'0');
+  return `${dias[fecha.getDay()]} ${dd}/${mm}/${y}`;
 }
 
 async function iniciarDatePicker() {
