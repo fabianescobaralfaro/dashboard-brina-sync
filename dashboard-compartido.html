@@ -1026,7 +1026,7 @@ window.RAPPI_DATA = {
 <body>
 <div id="shared-banner" style="background:linear-gradient(90deg,rgba(108,99,255,.2),rgba(108,99,255,.08));border-bottom:1px solid rgba(108,99,255,.35);padding:9px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:0.8rem;color:#a8b3cf">
   <span>📊 <strong style="color:#e2e8f0">Dashboard de Ventas — Brina Pizzeria</strong></span>
-  <span>Datos al <strong style="color:#e2e8f0">04/05/2026 22:04</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
+  <span>Datos al <strong style="color:#e2e8f0">05/05/2026 09:18</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
 </div>
 
 <!-- ══════════════════ SIDEBAR ══════════════════ -->
@@ -2701,16 +2701,10 @@ function renderHaulmer() {
   const abonos = H.abonos || {};
 
   // ── KPIs del día ──
-  // n_tx_total = transacciones reales del informe (débito+crédito+efectivo)
-  const nTxTotal  = d.n_tx_total  || 0;
-  const nTxDeb    = d.n_tx_debito  || 0;
-  const nTxCred   = d.n_tx_credito || 0;
-  const nTxEfec   = d.n_tx_efectivo|| 0;
-  // Boletas efectivo = de DTE; comprobantes tarjeta = nTxDeb+nTxCred
-  const nComprobantes = nTxDeb + nTxCred;
-  const nBolEfectivo  = dte.boletas || 0;
-  // Total documentos = boletas efectivo + comprobantes tarjeta
-  const nDocTotal = (nTxTotal > 0) ? nTxTotal : (nBolEfectivo + nComprobantes);
+  const nTxTotal = d.n_tx_total   || 0;
+  const nTxDeb   = d.n_tx_debito  || 0;
+  const nTxCred  = d.n_tx_credito || 0;
+  const nTxEfec  = d.n_tx_efectivo|| 0;
 
   document.getElementById('haulmer-kpis-dia').innerHTML = `
     <div class="kpi green">
@@ -2724,21 +2718,18 @@ function renderHaulmer() {
       <div class="kpi-sub">Incluido en ventas</div>
     </div>
     <div class="kpi yellow">
-      <div class="kpi-label">Documentos emitidos</div>
-      <div class="kpi-value">${nDocTotal}</div>
+      <div class="kpi-label">Transacciones del día</div>
+      <div class="kpi-value">${nTxTotal}</div>
       <div class="kpi-sub">
-        <span class="kpi-badge" title="Boletas efectivo en DTE Haulmer">Boletas: ${nBolEfectivo}</span>
-        ${nComprobantes > 0 ? `<span class="kpi-badge" style="margin-left:4px" title="Comprobantes tarjeta (débito/crédito)">Comprobantes: ${nComprobantes}</span>` : ''}
+        ${nTxDeb  ? `💳 Deb: ${nTxDeb}` : ''}
+        ${nTxCred ? ` &nbsp;Cred: ${nTxCred}` : ''}
+        ${nTxEfec ? ` &nbsp;💵 Ef: ${nTxEfec}` : ''}
       </div>
     </div>
     <div class="kpi">
-      <div class="kpi-label">Transacciones</div>
-      <div class="kpi-value">${nDocTotal}</div>
-      <div class="kpi-sub">
-        ${nTxDeb ? `💳 Deb: ${nTxDeb}` : ''}
-        ${nTxCred ? ` · Cred: ${nTxCred}` : ''}
-        ${nTxEfec ? ` · 💵 Ef: ${nTxEfec}` : ''}
-      </div>
+      <div class="kpi-label">Boletas en DTE Haulmer</div>
+      <div class="kpi-value">${dte.boletas||0}</div>
+      <div class="kpi-sub"><span class="kpi-badge">${fmt(dte.monto_boletas||0)}</span> efectivo</div>
     </div>
     <div class="kpi red">
       <div class="kpi-label">Abono neto total</div>
