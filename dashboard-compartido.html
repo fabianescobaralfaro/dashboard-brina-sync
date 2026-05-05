@@ -1089,7 +1089,7 @@ window.HISTORICO_DATOS = {"2026-05-05": {"fecha": "2026-05-05", "haulmer": {"act
 <body>
 <div id="shared-banner" style="background:linear-gradient(90deg,rgba(108,99,255,.2),rgba(108,99,255,.08));border-bottom:1px solid rgba(108,99,255,.35);padding:9px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:0.8rem;color:#a8b3cf">
   <span>📊 <strong style="color:#e2e8f0">Dashboard de Ventas — Brina Pizzeria</strong></span>
-  <span>Datos al <strong style="color:#e2e8f0">05/05/2026 17:52</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
+  <span>Datos al <strong style="color:#e2e8f0">05/05/2026 17:57</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
 </div>
 
 <!-- ══════════════════ SIDEBAR ══════════════════ -->
@@ -2252,12 +2252,17 @@ function renderResumen() {
   // Banner Toteat
   const T = window.TOTEAT_DATA;
   const bannerT = document.getElementById('banner-toteat');
+  const fechaVista = window._FECHA_VISTA || new Date().toISOString().slice(0, 10);
   if (T && !T.error) {
     bannerT.style.display = 'flex';
     const uc = T.ultimo_cierre || {};
+    const ucFechaIso = uc.fecha_iso || (uc.fecha ? uc.fecha.split('/').reverse().join('-') : '');
+    const toteatEsHoy = ucFechaIso === fechaVista;
     document.getElementById('banner-toteat-ts').textContent = `Actualizado: ${T.actualizadoEl}`;
     document.getElementById('banner-toteat-fecha').textContent = uc.fecha || '—';
-    document.getElementById('banner-toteat-ventas').textContent = fmt(uc.total_ventas || 0);
+    document.getElementById('banner-toteat-ventas').textContent =
+      toteatEsHoy ? fmt(uc.total_ventas || 0) : `${fmt(uc.total_ventas || 0)} (no incluido — cierre de otro día)`;
+    document.getElementById('banner-toteat-ventas').style.color = toteatEsHoy ? '' : 'var(--muted)';
     document.getElementById('banner-toteat-ordenes').textContent = (uc.n_ordenes || 0) + ' órdenes';
   } else {
     bannerT.style.display = 'none';
@@ -2298,12 +2303,14 @@ function renderResumen() {
 
   // ── Datos en vivo desde scrapers ──
   const liveHaulmer = (H && !H.error) ? ((H.informe_dia||{}).monto_ventas  || 0) : 0;
-  const liveToteat  = (T && !T.error) ? ((T.ultimo_cierre||{}).total_ventas || 0) : 0;
+  const _ucT = (T && !T.error) ? (T.ultimo_cierre || {}) : {};
+  const _ucFechaIso = _ucT.fecha_iso || (_ucT.fecha ? _ucT.fecha.split('/').reverse().join('-') : '');
+  const liveToteat  = (_ucFechaIso === fechaVista) ? (_ucT.total_ventas || 0) : 0;
   const livePya     = (PYA && !PYA.error) ? (PYA.performance_7d||[]).reduce((s,d)=>s+(d.revenue||0),0) : 0;
   const liveRappi   = (RAP && !RAP.error) ? ((RAP.ventas_7d||{}).total_amount || 0) : 0;
   const liveByPlat  = { Haulmer: liveHaulmer, Toteat: liveToteat, PedidosYa: livePya, Rappi: liveRappi };
 
-  const ordToteat = (T && !T.error) ? ((T.ultimo_cierre||{}).n_ordenes || 0) : 0;
+  const ordToteat = (_ucFechaIso === fechaVista) ? (_ucT.n_ordenes || 0) : 0;
   const ordPya    = (PYA && !PYA.error) ? (PYA.performance_7d||[]).reduce((s,d)=>s+(d.orderCount||0),0) : 0;
   const ordRappi  = (RAP && !RAP.error) ? ((RAP.ventas_7d||{}).total_orders || 0) : 0;
 
@@ -2340,7 +2347,7 @@ function renderResumen() {
   const platEmoji   = { PedidosYa:'🛵', Rappi:'🟠', Toteat:'🍽', Haulmer:'📊' };
   const platPeriod  = {
     Haulmer:   (H   && !H.error)   ? 'Hoy'                                              : 'Sin datos',
-    Toteat:    (T   && !T.error)   ? 'Cierre ' + ((T.ultimo_cierre||{}).fecha || '')     : 'Sin datos',
+    Toteat:    (T   && !T.error)   ? (_ucFechaIso === fechaVista ? 'Cierre ' + (_ucT.fecha||'') : 'Sin cierre del día — último: ' + (_ucT.fecha||'')) : 'Sin datos',
     PedidosYa: (PYA && !PYA.error) ? 'Últimos 7 días'                                   : 'Sin datos',
     Rappi:     (RAP && !RAP.error) ? 'Últimos 7 días'                                   : 'Sin datos',
   };
@@ -3472,6 +3479,8 @@ const DATOS_HOY = {
   pedidosya: window.PEDIDOSYA_DATA,
   rappi:     window.RAPPI_DATA,
 };
+// Fecha que se está visualizando (YYYY-MM-DD); se actualiza al cambiar selector
+window._FECHA_VISTA = new Date().toISOString().slice(0, 10);
 
 function _fmtFechaOpt(iso) {
   // "2026-05-04" -> "Lun 04/05/2026"
@@ -3541,6 +3550,7 @@ async function cargarFechaHistorica(fecha) {
     if (datos.toteat)    window.TOTEAT_DATA     = datos.toteat;
     if (datos.pedidosya) window.PEDIDOSYA_DATA  = datos.pedidosya;
     if (datos.rappi)     window.RAPPI_DATA      = datos.rappi;
+    window._FECHA_VISTA = fecha;
 
     const [y, m, d] = fecha.split('-');
     document.getElementById('hist-aviso-fecha').textContent = `${d}/${m}/${y}`;
@@ -3560,6 +3570,7 @@ function volverAHoy() {
   window.TOTEAT_DATA    = DATOS_HOY.toteat;
   window.PEDIDOSYA_DATA = DATOS_HOY.pedidosya;
   window.RAPPI_DATA     = DATOS_HOY.rappi;
+  window._FECHA_VISTA   = new Date().toISOString().slice(0, 10);
   document.getElementById('hist-aviso').style.display = 'none';
   document.getElementById('date-select').value = 'hoy';
   renderAll();
