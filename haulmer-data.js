@@ -1,6 +1,6 @@
 /* Generado automáticamente por scraper.py — NO editar manualmente */
 window.HAULMER_DATA = {
-  "actualizadoEl": "04/05/2026 21:39",
+  "actualizadoEl": "04/05/2026 21:47",
   "error": null,
   "informe_dia": {
     "periodo": "Día",
@@ -90,6 +90,7 @@ window.HAULMER_DATA = {
     ]
   },
   "dte": {
+    "total_declarado": 30,
     "total": 30,
     "boletas": 30,
     "facturas": 0,
@@ -276,7 +277,9 @@ window.HAULMER_DATA = {
         "monto": 400,
         "fecha": "12:10"
       }
-    ]
+    ],
+    "paginas_leidas": 1,
+    "nota": ""
   },
   "abonos": {
     "abonos": [
