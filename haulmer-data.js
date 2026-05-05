@@ -1,6 +1,6 @@
 /* Generado automáticamente por scraper.py — NO editar manualmente */
 window.HAULMER_DATA = {
-  "actualizadoEl": "04/05/2026 21:47",
+  "actualizadoEl": "04/05/2026 22:03",
   "error": null,
   "informe_dia": {
     "periodo": "Día",
@@ -29,7 +29,11 @@ window.HAULMER_DATA = {
         "efectivo": 21900,
         "propinas": 0
       }
-    ]
+    ],
+    "n_tx_debito": 60,
+    "n_tx_credito": 6,
+    "n_tx_efectivo": 56,
+    "n_tx_total": 122
   },
   "informe_semana": {
     "periodo": "Semana",
@@ -40,7 +44,7 @@ window.HAULMER_DATA = {
     "propinas": 7780,
     "debito": 217220,
     "credito": 10300,
-    "efectivo": 96080,
+    "efectivo": 21900,
     "pos_breakdown": [
       {
         "serial": "PB1T238420182",
@@ -58,7 +62,11 @@ window.HAULMER_DATA = {
         "efectivo": 21900,
         "propinas": 0
       }
-    ]
+    ],
+    "n_tx_debito": 60,
+    "n_tx_credito": 6,
+    "n_tx_efectivo": 56,
+    "n_tx_total": 122
   },
   "informe_mes": {
     "periodo": "Mes",
@@ -87,7 +95,11 @@ window.HAULMER_DATA = {
         "efectivo": 21900,
         "propinas": 0
       }
-    ]
+    ],
+    "n_tx_debito": 60,
+    "n_tx_credito": 6,
+    "n_tx_efectivo": 56,
+    "n_tx_total": 122
   },
   "dte": {
     "total_declarado": 30,
