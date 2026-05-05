@@ -7,40 +7,94 @@
 <script>
 /* Generado automáticamente por scraper.py — NO editar manualmente */
 window.HAULMER_DATA = {
-  "actualizadoEl": "04/05/2026 15:15",
+  "actualizadoEl": "04/05/2026 21:12",
   "error": null,
   "informe_dia": {
     "periodo": "Día",
-    "monto_neto": 161033,
-    "iva": 30607,
-    "monto_ventas": 191640,
-    "monto_exento": 191640,
-    "propinas": 6230,
-    "debito": 122320,
-    "credito": 3950,
-    "efectivo": 21900
+    "monto_neto": 265388,
+    "iva": 50432,
+    "monto_ventas": 315820,
+    "monto_exento": 315820,
+    "propinas": 7780,
+    "debito": 217220,
+    "credito": 10300,
+    "efectivo": 96080,
+    "pos_breakdown": [
+      {
+        "serial": "PB1T238420182",
+        "total_ventas": 236020,
+        "debito": 151540,
+        "credito": 10300,
+        "efectivo": 74180,
+        "propinas": 0
+      },
+      {
+        "serial": "6010B232511900275",
+        "total_ventas": 87580,
+        "debito": 65680,
+        "credito": 0,
+        "efectivo": 21900,
+        "propinas": 0
+      }
+    ]
   },
   "informe_semana": {
     "periodo": "Semana",
-    "monto_neto": 161033,
-    "iva": 30607,
-    "monto_ventas": 191640,
-    "monto_exento": 191640,
-    "propinas": 6230,
-    "debito": 122320,
-    "credito": 3950,
-    "efectivo": 21900
+    "monto_neto": 265388,
+    "iva": 50432,
+    "monto_ventas": 315820,
+    "monto_exento": 315820,
+    "propinas": 7780,
+    "debito": 217220,
+    "credito": 10300,
+    "efectivo": 96080,
+    "pos_breakdown": [
+      {
+        "serial": "PB1T238420182",
+        "total_ventas": 236020,
+        "debito": 151540,
+        "credito": 10300,
+        "efectivo": 74180,
+        "propinas": 0
+      },
+      {
+        "serial": "6010B232511900275",
+        "total_ventas": 87580,
+        "debito": 65680,
+        "credito": 0,
+        "efectivo": 21900,
+        "propinas": 0
+      }
+    ]
   },
   "informe_mes": {
     "periodo": "Mes",
-    "monto_neto": 161033,
-    "iva": 30607,
-    "monto_ventas": 191640,
-    "monto_exento": 191640,
-    "propinas": 6230,
-    "debito": 122320,
-    "credito": 3950,
-    "efectivo": 21900
+    "monto_neto": 265388,
+    "iva": 50432,
+    "monto_ventas": 315820,
+    "monto_exento": 315820,
+    "propinas": 7780,
+    "debito": 217220,
+    "credito": 10300,
+    "efectivo": 96080,
+    "pos_breakdown": [
+      {
+        "serial": "PB1T238420182",
+        "total_ventas": 236020,
+        "debito": 151540,
+        "credito": 10300,
+        "efectivo": 74180,
+        "propinas": 0
+      },
+      {
+        "serial": "6010B232511900275",
+        "total_ventas": 87580,
+        "debito": 65680,
+        "credito": 0,
+        "efectivo": 21900,
+        "propinas": 0
+      }
+    ]
   },
   "dte": {
     "total": 0,
@@ -654,7 +708,7 @@ window.RAPPI_DATA = {
 <body>
 <div id="shared-banner" style="background:linear-gradient(90deg,rgba(108,99,255,.2),rgba(108,99,255,.08));border-bottom:1px solid rgba(108,99,255,.35);padding:9px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:0.8rem;color:#a8b3cf">
   <span>📊 <strong style="color:#e2e8f0">Dashboard de Ventas — Brina Pizzeria</strong></span>
-  <span>Datos al <strong style="color:#e2e8f0">04/05/2026 16:08</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
+  <span>Datos al <strong style="color:#e2e8f0">04/05/2026 21:14</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
 </div>
 
 <!-- ══════════════════ SIDEBAR ══════════════════ -->
@@ -1117,6 +1171,15 @@ window.RAPPI_DATA = {
 
       <!-- Día / Semana / Mes -->
       <div class="grid3" id="haulmer-periodos"></div>
+
+      <!-- Desglose por POS/Terminal -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🖥️ Ventas por Terminal (POS) — Hoy</span>
+          <span class="card-muted" id="haulmer-pos-total"></span>
+        </div>
+        <div id="haulmer-pos-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:4px"></div>
+      </div>
 
       <!-- Desglose método de pago + DTE -->
       <div class="grid2">
@@ -2364,6 +2427,58 @@ function renderHaulmer() {
     periodoCard('Hoy', d, 'var(--green)') +
     periodoCard('Esta Semana', s, 'var(--accent)') +
     periodoCard('Este Mes', m, 'var(--yellow)');
+
+  // ── Desglose por POS ──
+  const posBreakdown = d.pos_breakdown || [];
+  const posGrid = document.getElementById('haulmer-pos-grid');
+  const posTotalEl = document.getElementById('haulmer-pos-total');
+  if (!posBreakdown.length) {
+    posGrid.innerHTML = `<div style="color:var(--muted);font-size:0.85rem;padding:12px 0">Sin datos por terminal. Ejecutar scraper para obtener desglose.</div>`;
+    posTotalEl.textContent = '';
+  } else {
+    const totalPropinas = d.propinas || 0;
+    posTotalEl.textContent = `${posBreakdown.length} terminales · Propinas: ${fmt(totalPropinas)}`;
+    posGrid.innerHTML = posBreakdown.map((pos, idx) => {
+      const total = pos.total_ventas || 0;
+      const deb   = pos.debito     || 0;
+      const cred  = pos.credito    || 0;
+      const efec  = pos.efectivo   || 0;
+      const pctDeb  = total ? Math.round(deb  / total * 100) : 0;
+      const pctCred = total ? Math.round(cred / total * 100) : 0;
+      const pctEfec = total ? Math.round(efec / total * 100) : 0;
+      const colors = ['var(--accent)', 'var(--green)', '#ff6584', '#f59e0b'];
+      const color = colors[idx % colors.length];
+      return `
+      <div class="card" style="border-top:3px solid ${color};margin:0">
+        <div class="card-header" style="flex-direction:column;align-items:flex-start;gap:4px">
+          <span style="font-size:0.7rem;color:var(--muted);letter-spacing:.5px;text-transform:uppercase">Terminal ${idx + 1}</span>
+          <span class="card-title" style="font-size:0.9rem;word-break:break-all">${pos.serial}</span>
+        </div>
+        <div class="summary-row" style="margin-top:8px">
+          <span style="font-weight:600">Total ventas</span>
+          <span class="font-bold text-green" style="font-size:1.1rem">${fmt(total)}</span>
+        </div>
+        <div style="height:1px;background:var(--border);margin:10px 0"></div>
+        <div class="summary-row">
+          <span>💳 Débito</span>
+          <span>${fmt(deb)} <span style="color:var(--muted);font-size:0.75rem">${pctDeb}%</span></span>
+        </div>
+        ${cred > 0 ? `<div class="summary-row">
+          <span>💳 Crédito</span>
+          <span>${fmt(cred)} <span style="color:var(--muted);font-size:0.75rem">${pctCred}%</span></span>
+        </div>` : ''}
+        <div class="summary-row">
+          <span>💵 Efectivo</span>
+          <span>${fmt(efec)} <span style="color:var(--muted);font-size:0.75rem">${pctEfec}%</span></span>
+        </div>
+        <div style="margin-top:10px;height:6px;border-radius:3px;background:var(--surface2);overflow:hidden;display:flex">
+          <div style="width:${pctDeb}%;background:var(--accent);transition:width .4s"></div>
+          ${cred > 0 ? `<div style="width:${pctCred}%;background:#ff6584;transition:width .4s"></div>` : ''}
+          <div style="width:${pctEfec}%;background:var(--green);transition:width .4s"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
 
   // ── Gráfico medios de pago (mes) ──
   const ctxPagos = document.getElementById('chart-haulmer-pagos').getContext('2d');
