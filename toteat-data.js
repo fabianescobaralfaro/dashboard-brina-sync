@@ -2,62 +2,25 @@
 window.TOTEAT_DATA = {
   "error": null,
   "ultimo_cierre": {
-    "fecha": "27/04/2026",
-    "fecha_iso": "2026-04-27",
-    "turno": "1494747985014084-00001-20260427TB.001",
-    "apertura": "2026-04-27T17:03:20",
+    "fecha": "05/05/2026",
+    "fecha_iso": "2026-05-05",
+    "turno": "1494747985014084-00001-20260505TB.001",
+    "apertura": "",
     "cierre": "",
-    "total_ventas": 9600,
-    "total_neto": 12770.0,
-    "total_iva": 2430.0,
-    "n_ordenes": 5,
+    "total_ventas": 0,
+    "total_neto": 0,
+    "total_iva": 0,
+    "n_ordenes": 0,
     "n_anuladas": 0,
-    "efectivo": 4500,
-    "tarjeta": 5100,
-    "productos_top": [
-      {
-        "nombre": "Coca Cola Normal 220 ml",
-        "cantidad": 2,
-        "total": 2000.0
-      },
-      {
-        "nombre": "Sprite 350 ml",
-        "cantidad": 1,
-        "total": 1300.0
-      },
-      {
-        "nombre": "Fanta 350 ml",
-        "cantidad": 1,
-        "total": 1300.0
-      },
-      {
-        "nombre": "Limon Soda 350 ml",
-        "cantidad": 1,
-        "total": 1300.0
-      },
-      {
-        "nombre": "Kryzpo Original 37 grs",
-        "cantidad": 1,
-        "total": 1200.0
-      },
-      {
-        "nombre": "Mora mora",
-        "cantidad": 4,
-        "total": 1200.0
-      },
-      {
-        "nombre": "Agua mineral con gas (500 ml)",
-        "cantidad": 1,
-        "total": 800.0
-      },
-      {
-        "nombre": "Bigtime verde",
-        "cantidad": 1,
-        "total": 500.0
-      }
-    ]
+    "efectivo": 0,
+    "tarjeta": 0,
+    "productos_top": []
   },
   "historial_cierres": [
+    {
+      "fecha": "2026-05-05",
+      "turno": "1494747985014084-00001-20260505TB.001"
+    },
     {
       "fecha": "2026-04-27",
       "turno": "1494747985014084-00001-20260427TB.001"
@@ -103,6 +66,6 @@ window.TOTEAT_DATA = {
       "turno": "1494747985014084-00001-20260415TB.002"
     }
   ],
-  "total_cierres_historicos": 29,
-  "actualizadoEl": "05/05/2026 13:19"
+  "total_cierres_historicos": 30,
+  "actualizadoEl": "05/05/2026 20:49"
 };
