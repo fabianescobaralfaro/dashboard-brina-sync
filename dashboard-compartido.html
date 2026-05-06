@@ -871,7 +871,7 @@ window.HISTORICO_DATOS = {"2026-05-05": {"fecha": "2026-05-05", "haulmer": {"act
 <body>
 <div id="shared-banner" style="background:linear-gradient(90deg,rgba(108,99,255,.2),rgba(108,99,255,.08));border-bottom:1px solid rgba(108,99,255,.35);padding:9px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:0.8rem;color:#a8b3cf">
   <span>📊 <strong style="color:#e2e8f0">Dashboard de Ventas — Brina Pizzeria</strong></span>
-  <span>Datos al <strong style="color:#e2e8f0">05/05/2026 20:50</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
+  <span>Datos al <strong style="color:#e2e8f0">05/05/2026 21:11</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
 </div>
 
 <!-- ══════════════════ SIDEBAR ══════════════════ -->
@@ -2571,35 +2571,37 @@ function renderHaulmer() {
   const nTxCred  = d.n_tx_credito || 0;
   const nTxEfec  = d.n_tx_efectivo|| 0;
 
+  // Abonos: transacciones ya liquidadas por Haulmer (tarjetas)
+  const nTxTarjeta = nTxDeb + nTxCred;
+  const nAbonadas  = abonos.n_transacciones_hoy || (abonos.abonos && abonos.abonos.length) || 0;
+  const pctLiquidado = nTxTarjeta > 0
+    ? Math.round((abonos.total_ventas_hoy || 0) / ((d.debito||0) + (d.credito||0)) * 100)
+    : 0;
+
   document.getElementById('haulmer-kpis-dia').innerHTML = `
     <div class="kpi green">
       <div class="kpi-label">Ventas Hoy</div>
       <div class="kpi-value">${fmt(d.monto_ventas||0)}</div>
-      <div class="kpi-sub"><span class="kpi-badge">Neto: ${fmt(d.monto_neto||0)}</span></div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">IVA del día</div>
-      <div class="kpi-value">${fmt(d.iva||0)}</div>
-      <div class="kpi-sub">Incluido en ventas</div>
+      <div class="kpi-sub"><span class="kpi-badge">Neto: ${fmt(d.monto_neto||0)}</span> &nbsp;IVA: ${fmt(d.iva||0)}</div>
     </div>
     <div class="kpi yellow">
-      <div class="kpi-label">Transacciones del día</div>
+      <div class="kpi-label">Boletas / Comprobantes</div>
       <div class="kpi-value">${nTxTotal}</div>
       <div class="kpi-sub">
-        ${nTxDeb  ? `💳 Deb: ${nTxDeb}` : ''}
-        ${nTxCred ? ` &nbsp;Cred: ${nTxCred}` : ''}
-        ${nTxEfec ? ` &nbsp;💵 Ef: ${nTxEfec}` : ''}
+        ${nTxDeb  ? `💳 Déb: ${nTxDeb}` : ''}
+        ${nTxCred ? ` · Cré: ${nTxCred}` : ''}
+        ${nTxEfec ? ` · 💵 Ef: ${nTxEfec}` : ''}
       </div>
     </div>
-    <div class="kpi">
-      <div class="kpi-label">Boletas en DTE Haulmer</div>
-      <div class="kpi-value">${dte.boletas||0}</div>
-      <div class="kpi-sub"><span class="kpi-badge">${fmt(dte.monto_boletas||0)}</span> efectivo</div>
+    <div class="kpi" style="${(dte.boletas||0) === 0 ? 'opacity:0.55' : ''}">
+      <div class="kpi-label">DTE Electrónicos emitidos</div>
+      <div class="kpi-value">${(dte.boletas||0) + (dte.facturas||0)}</div>
+      <div class="kpi-sub">${dte.boletas||0} boletas · ${dte.facturas||0} facturas${(dte.boletas||0) === 0 ? '<br><span style="font-size:0.68rem;color:var(--muted)">Los comprobantes POS no son DTE</span>' : ''}</div>
     </div>
     <div class="kpi red">
-      <div class="kpi-label">Abono neto total</div>
+      <div class="kpi-label">Liquidaciones tarjeta hoy</div>
       <div class="kpi-value">${fmt(abonos.total_abonado||0)}</div>
-      <div class="kpi-sub">Comisiones: <span style="color:var(--red)">${fmt(abonos.total_comision||0)}</span></div>
+      <div class="kpi-sub">${abonos.n_transacciones_hoy||0} tx procesadas · Comisión: ${fmt(abonos.total_comision||0)}</div>
     </div>
   `;
 
