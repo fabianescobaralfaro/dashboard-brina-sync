@@ -1,9 +1,9 @@
 /* Generado automaticamente por scraper_pedidosya.py — NO editar manualmente */
 window.PEDIDOSYA_DATA = {
   "error": null,
-  "estado_local": "CLOSED",
-  "cerrado_hasta": "2027-03-02T17:17:57.000Z",
-  "cerrado_razon": "UNREACHABLE",
+  "estado_local": "CLOSED_TODAY",
+  "cerrado_hasta": null,
+  "cerrado_razon": null,
   "tier": "NONE",
   "tier_periodo": {
     "desde": "",
@@ -28,5 +28,5 @@ window.PEDIDOSYA_DATA = {
   },
   "performance_7d": [],
   "heatmap": [],
-  "actualizadoEl": "05/05/2026 20:50"
+  "actualizadoEl": "06/05/2026 22:38"
 };
