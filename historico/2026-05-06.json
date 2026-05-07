@@ -1,7 +1,7 @@
 {
   "fecha": "2026-05-06",
   "haulmer": {
-    "actualizadoEl": "06/05/2026 22:34",
+    "actualizadoEl": "06/05/2026 22:42",
     "error": null,
     "informe_dia": {
       "periodo": "Día",
@@ -103,13 +103,194 @@
       "n_tx_total": 366
     },
     "dte": {
-      "total_declarado": 0,
-      "total": 0,
-      "boletas": 0,
+      "total_declarado": 30,
+      "total": 30,
+      "boletas": 30,
       "facturas": 0,
-      "monto_boletas": 0,
+      "monto_boletas": 59750,
       "monto_facturas": 0,
-      "documentos": [],
+      "documentos": [
+        {
+          "tipo": "Boleta",
+          "numero": "33975",
+          "monto": 2300,
+          "fecha": "18:46"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33974",
+          "monto": 6000,
+          "fecha": "18:43"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33973",
+          "monto": 400,
+          "fecha": "18:41"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33972",
+          "monto": 550,
+          "fecha": "17:34"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33971",
+          "monto": 14200,
+          "fecha": "17:21"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33970",
+          "monto": 1400,
+          "fecha": "17:02"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33969",
+          "monto": 1900,
+          "fecha": "16:44"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33968",
+          "monto": 5000,
+          "fecha": "16:13"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33967",
+          "monto": 3300,
+          "fecha": "15:09"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33966",
+          "monto": 2700,
+          "fecha": "14:25"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33965",
+          "monto": 4400,
+          "fecha": "14:15"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33964",
+          "monto": 400,
+          "fecha": "14:12"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33963",
+          "monto": 2150,
+          "fecha": "13:29"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33962",
+          "monto": 1400,
+          "fecha": "13:16"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33961",
+          "monto": 400,
+          "fecha": "13:13"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33960",
+          "monto": 650,
+          "fecha": "13:10"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33959",
+          "monto": 400,
+          "fecha": "12:50"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33958",
+          "monto": 400,
+          "fecha": "12:49"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33957",
+          "monto": 1900,
+          "fecha": "12:17"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33956",
+          "monto": 650,
+          "fecha": "12:15"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33955",
+          "monto": 400,
+          "fecha": "11:40"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33954",
+          "monto": 900,
+          "fecha": "11:36"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33953",
+          "monto": 650,
+          "fecha": "11:14"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33952",
+          "monto": 650,
+          "fecha": "11:10"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33951",
+          "monto": 650,
+          "fecha": "11:06"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33950",
+          "monto": 1900,
+          "fecha": "11:05"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33949",
+          "monto": 400,
+          "fecha": "11:04"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33948",
+          "monto": 2150,
+          "fecha": "11:00"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33947",
+          "monto": 1150,
+          "fecha": "10:56"
+        },
+        {
+          "tipo": "Boleta",
+          "numero": "33946",
+          "monto": 400,
+          "fecha": "10:54"
+        }
+      ],
       "paginas_leidas": 1,
       "nota": ""
     },
