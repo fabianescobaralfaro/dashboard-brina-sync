@@ -1062,7 +1062,7 @@ window.HISTORICO_DATOS = {"2026-05-06": {"fecha": "2026-05-06", "haulmer": {"act
 <body>
 <div id="shared-banner" style="background:linear-gradient(90deg,rgba(108,99,255,.2),rgba(108,99,255,.08));border-bottom:1px solid rgba(108,99,255,.35);padding:9px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:0.8rem;color:#a8b3cf">
   <span>📊 <strong style="color:#e2e8f0">Dashboard de Ventas — Brina Pizzeria</strong></span>
-  <span>Datos al <strong style="color:#e2e8f0">06/05/2026 23:59</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
+  <span>Datos al <strong style="color:#e2e8f0">07/05/2026 00:14</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
 </div>
 
 <!-- ══════════════════ SIDEBAR ══════════════════ -->
@@ -2040,11 +2040,14 @@ function cargarDB() {
 // ═══════════════════════════════════════
 // FILTROS DE FECHA
 // ═══════════════════════════════════════
+function _fechaLocalISO(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
 function initFechas() {
   const hoy = new Date();
   const primerDia = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
-  document.getElementById('filter-desde').value = primerDia.toISOString().split('T')[0];
-  document.getElementById('filter-hasta').value = hoy.toISOString().split('T')[0];
+  document.getElementById('filter-desde').value = _fechaLocalISO(primerDia);
+  document.getElementById('filter-hasta').value = _fechaLocalISO(hoy);
   document.getElementById('resumen-fecha').textContent =
     'Período: ' + primerDia.toLocaleDateString('es', {day:'2-digit',month:'long'}) +
     ' — ' + hoy.toLocaleDateString('es', {day:'2-digit',month:'long',year:'numeric'});
