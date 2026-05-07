@@ -1062,7 +1062,7 @@ window.HISTORICO_DATOS = {"2026-05-06": {"fecha": "2026-05-06", "haulmer": {"act
 <body>
 <div id="shared-banner" style="background:linear-gradient(90deg,rgba(108,99,255,.2),rgba(108,99,255,.08));border-bottom:1px solid rgba(108,99,255,.35);padding:9px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:0.8rem;color:#a8b3cf">
   <span>📊 <strong style="color:#e2e8f0">Dashboard de Ventas — Brina Pizzeria</strong></span>
-  <span>Datos al <strong style="color:#e2e8f0">06/05/2026 23:54</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
+  <span>Datos al <strong style="color:#e2e8f0">06/05/2026 23:59</strong> &nbsp;·&nbsp; Los datos se actualizan automaticamente cada noche a las 21:00</span>
 </div>
 
 <!-- ══════════════════ SIDEBAR ══════════════════ -->
@@ -2477,12 +2477,15 @@ function getLiveVentas() {
   const PYA = window.PEDIDOSYA_DATA;
   const RAP = window.RAPPI_DATA;
   const _hd = new Date(); const hoy = `${_hd.getFullYear()}-${String(_hd.getMonth()+1).padStart(2,'0')}-${String(_hd.getDate()).padStart(2,'0')}`;
+  // Fecha del dato capturado (dd/mm/yyyy hh:mm → yyyy-mm-dd); evita mostrar "mañana" por desfase UTC
+  const fechaDato = (H && H.actualizadoEl)
+    ? H.actualizadoEl.split(' ')[0].split('/').reverse().join('-')
+    : hoy;
 
   if (H && !H.error) {
     const d = H.informe_dia || {};
     const posBreakdown = d.pos_breakdown || [];
     if (posBreakdown.length > 0) {
-      // Una fila por terminal POS
       posBreakdown.forEach(pos => {
         if (!pos.total_ventas) return;
         const nombre = pos.serial.startsWith('PB1T') ? 'Brina' : pos.serial.startsWith('6010B') ? "Parking O'Carrol" : pos.serial;
@@ -2490,17 +2493,16 @@ function getLiveVentas() {
         if (pos.debito)   partes.push(`Débito $${Math.round(pos.debito).toLocaleString('es-CL')}`);
         if (pos.credito)  partes.push(`Crédito $${Math.round(pos.credito).toLocaleString('es-CL')}`);
         if (pos.efectivo) partes.push(`Efectivo $${Math.round(pos.efectivo).toLocaleString('es-CL')}`);
-        rows.push({ fecha: hoy, plataforma:'Haulmer',
+        rows.push({ fecha: fechaDato, plataforma:'Haulmer',
           descripcion: `${nombre} — Ventas del día` + (partes.length ? ' (' + partes.join(', ') + ')' : ''),
           tipoDoc:'Sin documento', nDoc: nombre, monto: pos.total_ventas, estado:'Pagado', _live:true });
       });
     } else if (d.monto_ventas > 0) {
-      // Fallback: una sola fila si no hay desglose por POS
       const partes = [];
       if (d.debito)   partes.push(`Débito $${Math.round(d.debito).toLocaleString('es-CL')}`);
       if (d.credito)  partes.push(`Crédito $${Math.round(d.credito).toLocaleString('es-CL')}`);
       if (d.efectivo) partes.push(`Efectivo $${Math.round(d.efectivo).toLocaleString('es-CL')}`);
-      rows.push({ fecha: hoy, plataforma:'Haulmer',
+      rows.push({ fecha: fechaDato, plataforma:'Haulmer',
         descripcion: 'Ventas del día' + (partes.length ? ' — ' + partes.join(', ') : ''),
         tipoDoc:'Sin documento', nDoc:'—', monto: d.monto_ventas, estado:'Pagado', _live:true });
     }
@@ -2509,12 +2511,13 @@ function getLiveVentas() {
   if (T && !T.error) {
     const uc = T.ultimo_cierre || {};
     if (uc.total_ventas > 0) {
-      const fi = uc.fecha_iso || (uc.fecha
-        ? uc.fecha.split('/').reverse().join('-')
-        : hoy);
-      rows.push({ fecha: fi, plataforma:'Toteat',
-        descripcion: `Cierre de caja ${uc.fecha||''} — ${uc.n_ordenes||0} órdenes`,
-        tipoDoc:'Sin documento', nDoc: uc.turno||'—', monto: uc.total_ventas, estado:'Pagado', _live:true });
+      const fi = uc.fecha_iso || (uc.fecha ? uc.fecha.split('/').reverse().join('-') : hoy);
+      // Solo mostrar si el cierre es del mismo día que los datos de Haulmer
+      if (fi === fechaDato) {
+        rows.push({ fecha: fi, plataforma:'Toteat',
+          descripcion: `Cierre de caja ${uc.fecha||''} — ${uc.n_ordenes||0} órdenes`,
+          tipoDoc:'Sin documento', nDoc: uc.turno||'—', monto: uc.total_ventas, estado:'Pagado', _live:true });
+      }
     }
   }
 
